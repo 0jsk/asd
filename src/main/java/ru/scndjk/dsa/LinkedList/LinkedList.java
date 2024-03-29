@@ -1,4 +1,4 @@
-package ru.scndjk.dsa.linkedList;
+package ru.scndjk.dsa.LinkedList;
 
 import java.util.*;
 
