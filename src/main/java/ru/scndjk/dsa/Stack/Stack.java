@@ -1,3 +1,5 @@
+package ru.scndjk.dsa.Stack;
+
 import java.util.*;
 
 public class Stack<T> {
