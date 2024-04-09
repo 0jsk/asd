@@ -227,5 +227,18 @@ public class OrderedListTest {
         assertEquals(-1, strList.compare("b", "c"));
         assertEquals(0, strList.compare("c", "c"));
     }
+
+    @Test
+    @DisplayName("should delete tail properly")
+    void testDeleteTail() {
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        list.delete(3);
+
+        assertEquals(1, list.head.value);
+        assertEquals(2, list.tail.value);
+    }
 }
 

@@ -29,20 +29,26 @@ public class OrderedList<T> {
             String t1 = s1.trim();
             String t2 = s2.trim();
 
-           int cmp = t1.compareTo(t2);
+            int cmp = t1.compareTo(t2);
 
-           if (cmp == 0) {
-               return 0;
-           }
+            if (cmp == 0) {
+                return 0;
+            }
 
-           return cmp < 0 ? -1 : 1;
+            return cmp < 0 ? -1 : 1;
         }
 
         if (v1 instanceof Comparable c1 && v2 instanceof Comparable c2) {
             return c1.compareTo(c2);
         }
 
-        return 0;
+        if (Integer.parseInt(v1.toString()) < Integer.parseInt(v2.toString())) {
+            return -1;
+        } else if (Integer.parseInt(v1.toString()) == Integer.parseInt(v2.toString())) {
+            return 0;
+        }
+
+        return 1;
     }
 
     public void add(T value) {
@@ -109,6 +115,8 @@ public class OrderedList<T> {
 
                     if (head != null) {
                         head.prev = null;
+                    } else {
+                        tail = null;
                     }
                 } else if (current == tail) {
                     tail = current.prev;
