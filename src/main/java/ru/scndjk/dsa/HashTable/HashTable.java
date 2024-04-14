@@ -57,26 +57,11 @@ public class HashTable {
     }
 
     public int find(String value) {
-        int index = hashFun(value);
-
-        if (slots[index] != null && slots[index].equals(value)) {
-            return index;
-        }
-
-        int currentIndex = index + step >= size ? index + step - size : index + step;
-
-        while (currentIndex != index) {
-            if (slots[index] != null && slots[index].equals(value)) {
-                return currentIndex;
-            }
-
-            currentIndex += step;
-
-            if (currentIndex >= size) {
-                currentIndex -= size;
+        for (int i = 0; i < size; i++) {
+            if (value.equals(slots[i])) {
+                return i;
             }
         }
-
         return -1;
     }
 }
