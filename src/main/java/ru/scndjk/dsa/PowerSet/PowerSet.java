@@ -1,6 +1,8 @@
 package ru.scndjk.dsa.PowerSet;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PowerSet {
@@ -25,6 +27,13 @@ public class PowerSet {
 
     public boolean get(String value) {
         return table.containsKey(value);
+    }
+
+    public List<String> keys() {
+        List<String> result = new ArrayList<>(table.keySet());
+        result.addAll(table.keySet());
+
+        return result;
     }
 
     public boolean remove(String value) {
@@ -70,8 +79,8 @@ public class PowerSet {
     }
 
     public boolean isSubset(PowerSet set2) {
-        for (String key : table.keySet()) {
-            if (!set2.get(key)) {
+        for (String key : set2.keys()) {
+            if (!get(key)) {
                 return false;
             }
         }

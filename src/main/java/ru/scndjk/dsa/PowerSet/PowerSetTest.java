@@ -62,13 +62,14 @@ public class PowerSetTest {
         powerSet3.put("b");
         powerSet3.put("c");
 
-        assertTrue(powerSet2.isSubset(powerSet3));
-        assertTrue(powerSet1.isSubset(powerSet3));
+        assertFalse(powerSet2.isSubset(powerSet3));
+        assertFalse(powerSet1.isSubset(powerSet3));
+        assertTrue(powerSet3.isSubset(powerSet1));
+        assertTrue(powerSet3.isSubset(powerSet2));
 
         PowerSet powerSet4 = new PowerSet();
-        powerSet4.put("c");
 
-        assertFalse(powerSet3.isSubset(powerSet4));
+        assertTrue(powerSet3.isSubset(powerSet4));
     }
 
     @Test
