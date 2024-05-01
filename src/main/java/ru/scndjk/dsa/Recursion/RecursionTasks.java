@@ -50,26 +50,25 @@ public class RecursionTasks {
             return true;
         }
 
-        final char first = str.charAt(0);
-        final char last = str.charAt(str.length() - 1);
+        return isPalindrome(str, 0, str.length() - 1);
+    }
 
-        if (first != last) {
-            return false;
+    private static boolean isPalindrome(String str, int left, int right) {
+        if (left >= right) {
+            return true;
         }
 
-        return isPalindrome(str.substring(1, str.length() - 1));
+        boolean isPalindrome = str.charAt(left) == str.charAt(right);
+
+        return isPalindrome && isPalindrome(str, left + 1, right - 1);
     }
 
     /**
      * 5. Печать только чётных значений из списка
      */
     public static void printEvenNumbers(List<Integer> list) {
-        if (list.isEmpty()) {
+        if (list.isEmpty() || list.get(0) % 2 == 0) {
             return;
-        }
-
-        if (list.get(0) % 2 == 0) {
-            System.out.println(list.get(0));
         }
 
         printEvenNumbers(list.subList(1, list.size()));
@@ -79,12 +78,8 @@ public class RecursionTasks {
      * 6. Печать элементов списка с чётными индексами
      */
     public static void printEvenIndexesElements(List<Integer> list) {
-        if (list.isEmpty()) {
+        if (list.isEmpty() || list.get(0) % 2 == 0) {
             return;
-        }
-
-        if (list.size() % 2 == 0) {
-            System.out.println(list.get(0));
         }
 
         printEvenIndexesElements(list.subList(1, list.size()));
@@ -117,11 +112,10 @@ public class RecursionTasks {
         int currentNumber = list.get(index);
 
         if (currentNumber > max) {
-            return secondMax(list, index + 1, currentNumber, max);
-        }
-
-        if (currentNumber > secondMax) {
-            return secondMax(list, index + 1, max, currentNumber);
+            secondMax = max;
+            max = currentNumber;
+        } else if (currentNumber > secondMax) {
+            secondMax = currentNumber;
         }
 
         return secondMax(list, index + 1, max, secondMax);
