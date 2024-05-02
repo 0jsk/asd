@@ -75,12 +75,6 @@ public class RecursionTasks {
             return;
         }
 
-        Integer currentNumber = list.get(index);
-
-        if (currentNumber % 2 == 0) {
-            System.out.println(currentNumber);
-        }
-
         printEvenNumbersRecursively(list, index + 1);
     }
 
@@ -93,15 +87,13 @@ public class RecursionTasks {
     }
 
     private static void printEventIndexesElementsRecursively(List<Integer> list, int index) {
-        if (list.size() == index) {
+        if (index >= list.size()) {
             return;
         }
 
-        if (index % 2 == 0) {
-            System.out.println(index);
-        }
+        System.out.println(list.get(index));
 
-        printEventIndexesElementsRecursively(list, index + 1);
+        printEventIndexesElementsRecursively(list, index + 2);
     }
 
     /**
