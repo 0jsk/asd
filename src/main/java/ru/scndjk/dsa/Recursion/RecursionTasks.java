@@ -50,39 +50,58 @@ public class RecursionTasks {
             return true;
         }
 
-        return isPalindrome(str, 0, str.length() - 1);
+        return isPalindromeRecursive(str, 0, str.length() - 1);
     }
 
-    private static boolean isPalindrome(String str, int left, int right) {
+    private static boolean isPalindromeRecursive(String str, int left, int right) {
         if (left >= right) {
             return true;
         }
 
         boolean isPalindrome = str.charAt(left) == str.charAt(right);
 
-        return isPalindrome && isPalindrome(str, left + 1, right - 1);
+        return isPalindrome && isPalindromeRecursive(str, left + 1, right - 1);
     }
 
     /**
      * 5. Печать только чётных значений из списка
      */
     public static void printEvenNumbers(List<Integer> list) {
-        if (list.isEmpty() || list.get(0) % 2 == 0) {
+        printEvenNumbersRecursively(list, 0);
+    }
+
+    private static void printEvenNumbersRecursively(List<Integer> list, int index) {
+        if (list.size() == index) {
             return;
         }
 
-        printEvenNumbers(list.subList(1, list.size()));
+        Integer currentNumber = list.get(index);
+
+        if (currentNumber % 2 == 0) {
+            System.out.println(currentNumber);
+        }
+
+        printEvenNumbersRecursively(list, index + 1);
     }
+
 
     /**
      * 6. Печать элементов списка с чётными индексами
      */
     public static void printEvenIndexesElements(List<Integer> list) {
-        if (list.isEmpty() || list.get(0) % 2 == 0) {
+        printEventIndexesElementsRecursively(list, 0);
+    }
+
+    private static void printEventIndexesElementsRecursively(List<Integer> list, int index) {
+        if (list.size() == index) {
             return;
         }
 
-        printEvenIndexesElements(list.subList(1, list.size()));
+        if (index % 2 == 0) {
+            System.out.println(index);
+        }
+
+        printEventIndexesElementsRecursively(list, index + 1);
     }
 
     /**
