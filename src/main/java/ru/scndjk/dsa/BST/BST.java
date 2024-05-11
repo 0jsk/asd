@@ -1,4 +1,3 @@
-package ru.scndjk.dsa.BST;
 
 class BSTNode<T> {
     public int NodeKey;
