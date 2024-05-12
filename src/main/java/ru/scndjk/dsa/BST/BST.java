@@ -1,3 +1,8 @@
+package ru.scndjk.dsa.BST;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class BSTNode<T> {
     public int NodeKey;
@@ -177,6 +182,82 @@ class BST<T> {
         }
 
         return 1 + CountRecursive(node.LeftChild) + CountRecursive(node.RightChild);
+    }
+
+    public ArrayList<BSTNode> WideAllNodes() {
+        ArrayList<BSTNode> visited = new ArrayList<>();
+
+        Queue<BSTNode> nodes = new LinkedList<>();
+
+        nodes.offer(Root);
+
+        while (!nodes.isEmpty()) {
+            BSTNode node = nodes.poll();
+
+            visited.add(node);
+
+            if (node.LeftChild != null) {
+                nodes.offer(node.LeftChild);
+            }
+
+            if (node.RightChild != null) {
+                nodes.offer(node.RightChild);
+            }
+        }
+
+        return visited;
+    }
+
+    public static int IN_ORDER = 0;
+    public static int POST_ORDER = 1;
+    public static int PRE_ORDER = 2;
+
+    public ArrayList<BSTNode> DeepAllNodes(int order) {
+        ArrayList<BSTNode> visited = new ArrayList<>();
+
+        if (order == PRE_ORDER) {
+            DeepAllNodesPreOrder(Root, visited);
+        }
+
+        if (order == POST_ORDER) {
+            DeepAllNodesPostOrder(Root, visited);
+        }
+
+        if (order == IN_ORDER) {
+            DeepAllNodesInOrder(Root, visited);
+        }
+
+        return visited;
+    }
+
+    private void DeepAllNodesInOrder(BSTNode<T> node, ArrayList<BSTNode> visited) {
+        if (node == null) {
+            return;
+        }
+
+        DeepAllNodesInOrder(node.LeftChild, visited);
+        visited.add(node);
+        DeepAllNodesInOrder(node.RightChild, visited);
+    }
+
+    private void DeepAllNodesPostOrder(BSTNode<T> node, ArrayList<BSTNode> visited) {
+        if (node == null) {
+            return;
+        }
+
+        DeepAllNodesPostOrder(node.LeftChild, visited);
+        DeepAllNodesPostOrder(node.RightChild, visited);
+        visited.add(node);
+    }
+
+    private void DeepAllNodesPreOrder(BSTNode<T> node, ArrayList<BSTNode> visited) {
+        if (node == null) {
+            return;
+        }
+
+        visited.add(node);
+        DeepAllNodesPreOrder(node.LeftChild, visited);
+        DeepAllNodesPreOrder(node.RightChild, visited);
     }
 }
 
