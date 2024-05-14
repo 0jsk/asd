@@ -1,7 +1,7 @@
 package ru.scndjk.dsa.aBst;
 
 class aBST {
-    public Integer Tree[]; // массив ключей
+    public Integer Tree[];
 
     public aBST(int depth) {
         int tree_size = (2 << depth) + 1;
@@ -12,7 +12,11 @@ class aBST {
     }
 
     public Integer FindKeyIndex(int key) {
-        for (int i = 0; i < Tree.length;) {
+        for (
+            int i = 0;
+            i < Tree.length;
+            i = Tree[i] > key ? getLeftChildIndex(i) : getRightChildIndex(i)
+        ) {
             if (Tree[i] == null) {
                 return -i;
             }
@@ -20,8 +24,6 @@ class aBST {
             if (Tree[i] == key) {
                 return i;
             }
-
-            i = Tree[i] > key ? getLeftChildIndex(i) : getRightChildIndex(i);
         }
 
         return null;
@@ -65,3 +67,4 @@ class aBST {
         return getLeftChildIndex(index) + 1;
     }
 }
+
