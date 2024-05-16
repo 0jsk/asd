@@ -32,28 +32,10 @@ class BalancedBST {
 
     public boolean IsBalanced(BSTNode rootNode) {
         if (rootNode == null) {
-            return true;
-        }
-
-        if (rootNode.LeftChild != null && rootNode.LeftChild.NodeKey >= rootNode.NodeKey) {
             return false;
         }
 
-        if (rootNode.RightChild != null && rootNode.RightChild.NodeKey < rootNode.NodeKey) {
-            return false;
-        }
-
-        boolean leftBalanced = IsBalanced(rootNode.LeftChild);
-        boolean rightBalanced = IsBalanced(rootNode.RightChild);
-
-        if (leftBalanced && rightBalanced) {
-            int leftHeight = getHeight(rootNode.LeftChild);
-            int rightHeight = getHeight(rootNode.RightChild);
-
-            return Math.abs(leftHeight - rightHeight) <= 1;
-        }
-
-        return false;
+        return getHeight(rootNode) != -1;
     }
 
     private BSTNode BuildBalancedTree(int[] a, int start, int end, BSTNode parent) {
@@ -84,6 +66,12 @@ class BalancedBST {
         int leftHeight = getHeight(node.LeftChild);
         int rightHeight = getHeight(node.RightChild);
 
-        return Math.max(leftHeight, rightHeight);
+        int margin = Math.abs(leftHeight - rightHeight);
+
+        if (margin <= 1) {
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+
+        return -1;
     }
 }
