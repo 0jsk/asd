@@ -1,7 +1,6 @@
 package ru.scndjk.dsa.SimpleGraph;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 class Vertex {
     public int Value;
@@ -104,6 +103,39 @@ class SimpleGraph {
         return new ArrayList<>();
     }
 
+    public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+        restoreHits();
+
+        if (vertex[VFrom] == null || vertex[VTo] == null) {
+            return new ArrayList<>();
+        }
+
+        Queue<Vertex> queue = new LinkedList<>();
+        int[] predecessors = new int[max_vertex];
+        Arrays.fill(predecessors, -1);
+
+        vertex[VFrom].Hit = true;
+        queue.add(vertex[VFrom]);
+
+        while (!queue.isEmpty()) {
+            Vertex currentVertex = queue.poll();
+
+            if (currentVertex.Value == vertex[VTo].Value) {
+                return buildPath(predecessors, VFrom, VTo);
+            }
+
+            for (int i = 0; i < max_vertex; i += 1) {
+                if (IsEdge(currentVertex.Value, i) && !vertex[i].Hit) {
+                    vertex[i].Hit = true;
+                    predecessors[i] = currentVertex.Value;
+                    queue.add(vertex[i]);
+                }
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
     private int findUnvisitedAdjacentVertex(Vertex vertex) {
         for (int i = 0; i < max_vertex; i += 1) {
             if (m_adjacency[vertex.Value][i] == 1 && !this.vertex[i].Hit) {
@@ -115,13 +147,27 @@ class SimpleGraph {
     }
 
     private ArrayList<Vertex> buildPath(Stack<Vertex> stack) {
-        ArrayList<Vertex> path = new ArrayList<>();
+        LinkedList<Vertex> path = new LinkedList<>();
 
         for (Vertex v : stack) {
-            path.add(0, v);
+            path.addFirst(v);
         }
 
-        return path;
+        return new ArrayList<>(path);
+    }
+
+    private ArrayList<Vertex> buildPath(int[] predecessors, int VFrom, int VTo) {
+        LinkedList<Vertex> path = new LinkedList<>();
+
+        for (int at = VTo; at != -1; at = predecessors[at]) {
+            path.addFirst(vertex[at]);
+
+            if (vertex[at].Value == VFrom) {
+                break;
+            }
+        }
+
+        return new ArrayList<>(path);
     }
 
     private void restoreHits() {
