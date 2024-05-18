@@ -74,39 +74,42 @@ class SimpleGraph {
     public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
         restoreHits();
 
-        Stack<Vertex> stack = new Stack<>();
-
-        if (vertex[VFrom] == null || vertex[VTo] == null) {
+        if (isValidVertexIndex(VFrom) || isValidVertexIndex(VTo)) {
             return new ArrayList<>();
         }
 
-        stack.push(vertex[VFrom]);
-        vertex[VFrom].Hit = true;
+        Stack<Vertex> stack = new Stack<>();
 
-        while (!stack.isEmpty()) {
-            Vertex currentVertex = stack.pop();
-
-            if (currentVertex.Value == vertex[VTo].Value) {
-                return buildPath(stack);
-            }
-
-            int adjacentVertexIndex = findUnvisitedAdjacentVertex(currentVertex);
-
-            if (adjacentVertexIndex != -1) {
-                stack.push(vertex[adjacentVertexIndex]);
-                vertex[adjacentVertexIndex].Hit = true;
-            } else {
-                stack.pop();
-            }
+        if (DepthFirstSearchRecursive(stack, VFrom, VTo)) {
+            return buildPath(stack);
         }
 
         return new ArrayList<>();
     }
 
+    private boolean DepthFirstSearchRecursive(Stack<Vertex> stack, int current, int target) {
+        vertex[current].Hit = true;
+        stack.push(vertex[current]);
+
+        if (current == target) {
+            return true;
+        }
+
+        for (int i = 0; i < max_vertex; i += 1) {
+            if (m_adjacency[current][i] == 1 && !vertex[i].Hit && DepthFirstSearchRecursive(stack, i, target)) {
+                return true;
+            }
+        }
+
+        stack.pop();
+
+        return false;
+    }
+
     public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
         restoreHits();
 
-        if (vertex[VFrom] == null || vertex[VTo] == null) {
+        if (isValidVertexIndex(VFrom) || isValidVertexIndex(VTo)) {
             return new ArrayList<>();
         }
 
@@ -136,16 +139,6 @@ class SimpleGraph {
         return new ArrayList<>();
     }
 
-    private int findUnvisitedAdjacentVertex(Vertex vertex) {
-        for (int i = 0; i < max_vertex; i += 1) {
-            if (m_adjacency[vertex.Value][i] == 1 && !this.vertex[i].Hit) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
     private ArrayList<Vertex> buildPath(Stack<Vertex> stack) {
         LinkedList<Vertex> path = new LinkedList<>();
 
@@ -168,6 +161,10 @@ class SimpleGraph {
         }
 
         return new ArrayList<>(path);
+    }
+
+    private boolean isValidVertexIndex(int index) {
+        return index < 0 || index >= max_vertex || vertex[index] == null;
     }
 
     private void restoreHits() {
