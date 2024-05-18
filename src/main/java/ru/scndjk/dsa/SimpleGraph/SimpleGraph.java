@@ -138,6 +138,38 @@ class SimpleGraph {
         return buildPath(predecessors, VFrom, VTo);
     }
 
+    public ArrayList<Vertex> WeakVertices() {
+        ArrayList<Vertex> weakVertices = new ArrayList<>();
+
+        for (int i = 0; i < max_vertex; i += 1) {
+            if (vertex[i] == null) {
+                continue;
+            }
+
+            if (!isPartOfTriangle(i)) {
+                weakVertices.add(vertex[i]);
+            }
+        }
+
+        return weakVertices;
+    }
+
+    private boolean isPartOfTriangle(int vertexIndex) {
+        for (int i = 0; i < max_vertex; i += 1) {
+            if (m_adjacency[vertexIndex][i] != 1) {
+                continue;
+            }
+
+            for (int j = i + 1; j < max_vertex; j += 1) {
+                if (m_adjacency[vertexIndex][j] == 1 && m_adjacency[i][j] == 1) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     private ArrayList<Vertex> buildPath(Stack<Vertex> stack) {
         LinkedList<Vertex> path = new LinkedList<>();
 
