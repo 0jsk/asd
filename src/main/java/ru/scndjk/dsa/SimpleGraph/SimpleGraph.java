@@ -109,34 +109,33 @@ class SimpleGraph {
     public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
         restoreHits();
 
-        if (isValidVertexIndex(VFrom) || isValidVertexIndex(VTo)) {
-            return new ArrayList<>();
-        }
-
-        Queue<Vertex> queue = new LinkedList<>();
+        Queue<Integer> queue = new LinkedList<>();
         int[] predecessors = new int[max_vertex];
+        boolean[] visited = new boolean[max_vertex];
         Arrays.fill(predecessors, -1);
 
-        vertex[VFrom].Hit = true;
-        queue.add(vertex[VFrom]);
+        visited[VFrom] = true;
+        queue.add(VFrom);
 
         while (!queue.isEmpty()) {
-            Vertex currentVertex = queue.poll();
+            int currentVertexIndex = queue.poll();
 
-            if (currentVertex.Value == vertex[VTo].Value) {
-                return buildPath(predecessors, VFrom, VTo);
+            if (currentVertexIndex == VTo) {
+                break;
             }
 
             for (int i = 0; i < max_vertex; i += 1) {
-                if (IsEdge(currentVertex.Value, i) && !vertex[i].Hit) {
-                    vertex[i].Hit = true;
-                    predecessors[i] = currentVertex.Value;
-                    queue.add(vertex[i]);
+                if (!IsEdge(currentVertexIndex, i) || visited[i]) {
+                    continue;
                 }
+
+                visited[i] = true;
+                predecessors[i] = currentVertexIndex;
+                queue.add(i);
             }
         }
 
-        return new ArrayList<>();
+        return buildPath(predecessors, VFrom, VTo);
     }
 
     private ArrayList<Vertex> buildPath(Stack<Vertex> stack) {
@@ -152,15 +151,15 @@ class SimpleGraph {
     private ArrayList<Vertex> buildPath(int[] predecessors, int VFrom, int VTo) {
         LinkedList<Vertex> path = new LinkedList<>();
 
-        for (int at = VTo; at != -1; at = predecessors[at]) {
-            path.addFirst(vertex[at]);
+        for (int i = VTo; i != -1; i = predecessors[i]) {
+            path.addFirst(vertex[i]);
 
-            if (vertex[at].Value == VFrom) {
+            if (i == VFrom) {
                 break;
             }
         }
 
-        return new ArrayList<>(path);
+        return path.size() > 1 || path.get(0).Value == vertex[VFrom].Value ? new ArrayList<>(path) : new ArrayList<>(); // Проверяем валидность пути
     }
 
     private boolean isValidVertexIndex(int index) {
