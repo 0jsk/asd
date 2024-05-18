@@ -143,7 +143,7 @@ class SimpleGraph {
         LinkedList<Vertex> path = new LinkedList<>();
 
         for (Vertex v : stack) {
-            path.addFirst(v);
+            path.addLast(v);
         }
 
         return new ArrayList<>(path);
