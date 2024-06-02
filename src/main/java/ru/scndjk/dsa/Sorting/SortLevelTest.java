@@ -15,16 +15,17 @@ public class SortLevelTest {
 
     @Test
     void testBubbleSortSwapped() {
-        int[] array = {1, 2, 3, 5, 4};
+        int[] array = {4, 3, 1, 2};
 
-        assertTrue(SortLevel.BubbleSortStep(array));
-        assertEquals(5, array[array.length - 1]);
+        assertFalse(SortLevel.BubbleSortStep(array));
+        assertEquals(4, array[array.length - 1]);
         assertFalse(SortLevel.BubbleSortStep(array));
     }
 
     @Test
     void testBubbleSortNotSwapped() {
         int[] array = {1, 2, 3, 4, 5};
-        assertFalse(SortLevel.BubbleSortStep(array));
+        assertTrue(SortLevel.BubbleSortStep(array));
     }
+
 }
