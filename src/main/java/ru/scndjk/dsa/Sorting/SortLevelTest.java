@@ -28,4 +28,17 @@ public class SortLevelTest {
         assertTrue(SortLevel.BubbleSortStep(array));
     }
 
+    @Test
+    void testInsertionSort() {
+        int[] array = {1, 6, 5, 4, 3, 2, 7};
+
+        SortLevel.InsertionSortStep(array, 3, 1);
+
+        assertArrayEquals(array, new int[]{1, 3, 5, 4, 6, 2, 7});
+
+        int[] array2 = {5, 3, 8, 1, 2};
+
+        SortLevel.InsertionSortStep(array2, 1, 0);
+        assertArrayEquals(array, new int[]{1, 3, 5, 4, 6, 2, 7});
+    }
 }

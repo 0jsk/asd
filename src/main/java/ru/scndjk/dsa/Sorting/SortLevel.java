@@ -26,6 +26,24 @@ public class SortLevel {
         return isSorted;
     }
 
+    public static void InsertionSortStep(int[] array, int step, int startIndex) {
+        if (step < 0 || startIndex < 0 || startIndex >= array.length) {
+            return;
+        }
+
+        for (int i = startIndex; i < array.length; i += step) {
+            int currentValue = array[i];
+            int j = i - step;
+
+            while (j >= startIndex && array[j] > currentValue) {
+                array[j + step] = array[j];
+                j -= step;
+            }
+
+            array[j + step] = currentValue;
+        }
+    }
+
     private static void swap(int[] array, int i, int j) {
         int temp = array[i];
         array[i] = array[j];
