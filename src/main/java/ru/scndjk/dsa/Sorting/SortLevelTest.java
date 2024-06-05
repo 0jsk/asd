@@ -1,6 +1,7 @@
 package ru.scndjk.dsa.Sorting;
 
 import org.junit.jupiter.api.Test;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,5 +41,10 @@ public class SortLevelTest {
 
         SortLevel.InsertionSortStep(array2, 1, 0);
         assertArrayEquals(array, new int[]{1, 3, 5, 4, 6, 2, 7});
+    }
+
+    @Test
+    void testKnuthSequence() {
+        assertIterableEquals(Arrays.asList(13, 4, 1), SortLevel.KnuthSequence(15));
     }
 }

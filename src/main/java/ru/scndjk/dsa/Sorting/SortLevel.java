@@ -1,5 +1,8 @@
 package ru.scndjk.dsa.Sorting;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class SortLevel {
     public static void SelectionSortStep(int[] array, int i) {
         int minIndex = i;
@@ -42,6 +45,19 @@ public class SortLevel {
 
             array[j + step] = currentValue;
         }
+    }
+
+    public static ArrayList<Integer> KnuthSequence(int size) {
+        ArrayList<Integer> sequence = new ArrayList<>();
+        int step = 1;
+
+        while (step < size) {
+            sequence.add(step);
+            step = 3 * step + 1;
+        }
+
+        Collections.reverse(sequence);
+        return sequence;
     }
 
     private static void swap(int[] array, int i, int j) {
