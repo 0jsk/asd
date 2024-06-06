@@ -51,7 +51,7 @@ public class SortLevel {
         ArrayList<Integer> sequence = new ArrayList<>();
         int step = 1;
 
-        while (step < size) {
+        while (step <= size) {
             sequence.add(step);
             step = 3 * step + 1;
         }
