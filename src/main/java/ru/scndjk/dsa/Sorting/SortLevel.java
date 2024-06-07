@@ -60,6 +60,36 @@ public class SortLevel {
         return sequence;
     }
 
+    public static int ArrayChunk(int[] M) {
+        if (M.length == 0) {
+            return 0;
+        }
+
+        int pivotIndex = M.length / 2;
+        int N = M[pivotIndex];
+
+        int i1 = 0;
+        int i2 = M.length - 1;
+
+        while (i1 <= i2) {
+            while (i1 < M.length && M[i1] < N) {
+                i1 += 1;
+            }
+
+            while (i2 >= 0 && M[i2] > N) {
+                i2 -= 1;
+            }
+
+            if (i1 <= i2) {
+                swap(M, i1, i2);
+                i1 += 1;
+                i2 -= 1;
+            }
+        }
+
+        return i1 - 1;
+    }
+
     private static void swap(int[] array, int i, int j) {
         int temp = array[i];
         array[i] = array[j];

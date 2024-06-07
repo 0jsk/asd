@@ -1,6 +1,7 @@
 package ru.scndjk.dsa.Sorting;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,5 +50,21 @@ public class SortLevelTest {
         assertIterableEquals(Arrays.asList(13, 4, 1), SortLevel.KnuthSequence(15));
         assertIterableEquals(List.of(1), SortLevel.KnuthSequence(1));
         assertIterableEquals(Arrays.asList(4, 1), SortLevel.KnuthSequence(5));
+    }
+
+    @Test
+    void testArrayChunk() {
+        int[] array1 = {7, 5, 6, 4, 3, 1, 2};
+        assertEquals(3, SortLevel.ArrayChunk(array1));
+        assertArrayEquals(new int[]{2, 1, 3, 4, 6, 5, 7}, array1);
+
+        int[] array2 = {4, 3, 1, 2};
+        assertEquals(0, SortLevel.ArrayChunk(array2));
+        assertArrayEquals(new int[]{1, 3, 4, 2}, array2);
+
+        int[] arrayEmpty = new int[]{};
+
+        assertEquals(0, SortLevel.ArrayChunk(arrayEmpty));
+        assertArrayEquals(new int[]{}, arrayEmpty);
     }
 }
