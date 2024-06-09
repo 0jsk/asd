@@ -63,8 +63,11 @@ public class SortLevelTest {
         assertArrayEquals(new int[]{1, 3, 4, 2}, array2);
 
         int[] arrayEmpty = new int[]{};
-
         assertEquals(0, SortLevel.ArrayChunk(arrayEmpty));
         assertArrayEquals(new int[]{}, arrayEmpty);
+
+        int[] array3 = {6, 5, 7};
+        assertEquals(1, SortLevel.ArrayChunk(array3));
+        assertArrayEquals(new int[]{5, 6, 7}, array3);
     }
 }
