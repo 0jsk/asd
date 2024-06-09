@@ -61,16 +61,18 @@ public class SortLevel {
     }
 
 
-    public static int ArrayChunk(int[] M) {
+    public static int partition(int[] M, int left, int right) {
         if (M.length == 0) {
             return 0;
         }
 
+        final int length = right + left;
+
         while (true) {
-            int pivotIndex = M.length / 2;
+            int pivotIndex = length / 2;
             int N = M[pivotIndex];
-            int i1 = 0;
-            int i2 = M.length - 1;
+            int i1 = left;
+            int i2 = right - 1;
 
             while (true) {
                 while (M[i1] < N) {
@@ -101,6 +103,24 @@ public class SortLevel {
                 }
             }
         }
+    }
+
+    public static int ArrayChunk(int[] M) {
+        return partition(M, 0, M.length);
+    }
+
+    public static int ArrayChunk(int[] M, int left, int right) {
+        return partition(M, left, right);
+    }
+
+    public static void QuickSort(int[] array, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pivotIndex = ArrayChunk(array, left, right);
+        QuickSort(array, left, pivotIndex - 1);
+        QuickSort(array, pivotIndex + 1, right);
     }
 
 

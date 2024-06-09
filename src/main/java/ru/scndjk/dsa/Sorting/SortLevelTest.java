@@ -70,4 +70,19 @@ public class SortLevelTest {
         assertEquals(1, SortLevel.ArrayChunk(array3));
         assertArrayEquals(new int[]{5, 6, 7}, array3);
     }
+
+    @Test
+    void testQuickSort() {
+        int[] array1 = {5, 4, 3, 2, 1};
+        SortLevel.QuickSort(array1, 0, array1.length);
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5}, array1);
+
+        int[] array2 = {1, 2, 3, 4, 5, 6, 7};
+        SortLevel.QuickSort(array2, 0, array2.length);
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7}, array2);
+
+        int[] array3 = {};
+        SortLevel.QuickSort(array3, 0, array3.length);
+        assertArrayEquals(new int[]{}, array3);
+    }
 }
