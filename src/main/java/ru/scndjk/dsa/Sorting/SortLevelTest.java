@@ -74,15 +74,19 @@ public class SortLevelTest {
     @Test
     void testQuickSort() {
         int[] array1 = {5, 4, 3, 2, 1};
-        SortLevel.QuickSort(array1, 0, array1.length);
+        SortLevel.QuickSort(array1, 0, array1.length - 1);
         assertArrayEquals(new int[]{1, 2, 3, 4, 5}, array1);
 
         int[] array2 = {1, 2, 3, 4, 5, 6, 7};
-        SortLevel.QuickSort(array2, 0, array2.length);
+        SortLevel.QuickSort(array2, 0, array2.length - 1);
         assertArrayEquals(new int[]{1, 2, 3, 4, 5, 6, 7}, array2);
 
         int[] array3 = {};
-        SortLevel.QuickSort(array3, 0, array3.length);
+        SortLevel.QuickSort(array3, 0, array3.length - 1);
         assertArrayEquals(new int[]{}, array3);
+
+        int[] array4 = {2, -3, 1, 0};
+        SortLevel.QuickSort(array4, 0, array4.length - 1);
+        assertArrayEquals(new int[]{-3, 0, 1, 2}, array4);
     }
 }

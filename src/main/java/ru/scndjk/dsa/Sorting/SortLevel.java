@@ -66,47 +66,42 @@ public class SortLevel {
             return 0;
         }
 
-        final int length = right + left;
+        int pivotIndex = left + (right - left) / 2;
+        int pivot = M[pivotIndex];
+        int i1 = left;
+        int i2 = right;
 
-        while (true) {
-            int pivotIndex = length / 2;
-            int N = M[pivotIndex];
-            int i1 = left;
-            int i2 = right - 1;
-
-            while (true) {
-                while (M[i1] < N) {
-                    i1++;
-                }
-
-                while (M[i2] > N) {
-                    i2--;
-                }
-
-                if (i1 == i2 - 1 && M[i1] > M[i2]) {
-                    swap(M, i1, i2);
-                    break;
-                }
-
-                if (i1 == i2 || (i1 == i2 - 1 && M[i1] < M[i2])) {
-                    return pivotIndex;
-                }
-
-                swap(M, i1, i2);
-
-                if (M[i1] == N) {
-                    pivotIndex = i1;
-                }
-
-                if (M[i2] == N) {
-                    pivotIndex = i2;
-                }
+        while (i1 <= i2) {
+            while (i1 < right && M[i1] < pivot) {
+                i1 += 1;
             }
+
+            while (i2 > left && M[i2] > pivot) {
+                i2 -= 1;
+            }
+
+            if (i1 > i2) {
+                break;
+            }
+
+            swap(M, i1, i2);
+
+            if (i1 == pivotIndex) {
+                pivotIndex = i2;
+            } else if (i2 == pivotIndex) {
+                pivotIndex = i1;
+            }
+
+            i1 += 1;
+            i2 -= 1;
         }
+
+        return pivotIndex;
+
     }
 
     public static int ArrayChunk(int[] M) {
-        return partition(M, 0, M.length);
+        return partition(M, 0, M.length - 1);
     }
 
     public static int ArrayChunk(int[] M, int left, int right) {
@@ -121,6 +116,20 @@ public class SortLevel {
         int pivotIndex = ArrayChunk(array, left, right);
         QuickSort(array, left, pivotIndex - 1);
         QuickSort(array, pivotIndex + 1, right);
+    }
+
+    public static void QuickSortTailOptimization(int[] array, int left, int right) {
+        while (left < right) {
+            int pivotIndex = ArrayChunk(array, left, right);
+
+            if (pivotIndex - left < right - pivotIndex) {
+                QuickSortTailOptimization(array, left, pivotIndex - 1);
+                left = pivotIndex + 1;
+            } else {
+                QuickSortTailOptimization(array, pivotIndex + 1, right);
+                right = pivotIndex - 1;
+            }
+        }
     }
 
 
