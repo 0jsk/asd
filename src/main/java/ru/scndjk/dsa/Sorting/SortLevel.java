@@ -1,6 +1,7 @@
 package ru.scndjk.dsa.Sorting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class SortLevel {
@@ -130,6 +131,20 @@ public class SortLevel {
                 right = pivotIndex - 1;
             }
         }
+    }
+
+    public static ArrayList<Integer> KthOrderStatisticsStep(int[] array, int L, int R, int k) {
+        int pivotIndex = partition(array, L, R);
+
+        if (pivotIndex == k) {
+            return new ArrayList<>(Arrays.asList(pivotIndex, pivotIndex));
+        }
+
+        if (pivotIndex < k) {
+            return new ArrayList<>(Arrays.asList(pivotIndex + 1, R));
+        }
+
+        return new ArrayList<>(Arrays.asList(L, pivotIndex - 1));
     }
 
 
