@@ -147,6 +147,47 @@ public class SortLevel {
         return new ArrayList<>(Arrays.asList(L, pivotIndex - 1));
     }
 
+    public static ArrayList<Integer> MergeSort(ArrayList<Integer> array) {
+        if (array.size() <= 1) {
+            return array;
+        }
+
+        int middle = array.size() / 2;
+        ArrayList<Integer> left = new ArrayList<>(array.subList(0, middle));
+        ArrayList<Integer> right = new ArrayList<>(array.subList(middle, array.size()));
+
+        left = MergeSort(left);
+        right = MergeSort(right);
+
+        return merge(left, right);
+    }
+
+    private static ArrayList<Integer> merge(ArrayList<Integer> left, ArrayList<Integer> right) {
+        ArrayList<Integer> result = new ArrayList<>();
+        int leftIndex = 0, rightIndex = 0;
+
+        while (leftIndex < left.size() && rightIndex < right.size()) {
+            if (left.get(leftIndex) < right.get(rightIndex)) {
+                result.add(left.get(leftIndex));
+                leftIndex += 1;
+            } else {
+                result.add(right.get(rightIndex));
+                rightIndex += 1;
+            }
+        }
+
+        while (leftIndex < left.size()) {
+            result.add(left.get(leftIndex));
+            leftIndex += 1;
+        }
+
+        while (rightIndex < right.size()) {
+            result.add(right.get(rightIndex));
+            rightIndex += 1;
+        }
+
+        return result;
+    }
 
     private static void swap(int[] array, int i, int j) {
         int temp = array[i];
