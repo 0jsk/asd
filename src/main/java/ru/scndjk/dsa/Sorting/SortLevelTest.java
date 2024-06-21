@@ -89,4 +89,32 @@ public class SortLevelTest {
         SortLevel.QuickSort(array4, 0, array4.length - 1);
         assertArrayEquals(new int[]{-3, 0, 1, 2}, array4);
     }
+
+    @Test
+    void testHeapSort() {
+        int[] inputArray = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+        HeapSort heapSort = new HeapSort(inputArray);
+        int[] sortedArray = new int[inputArray.length];
+        for (int i = 0; i < sortedArray.length; i++) {
+            sortedArray[i] = heapSort.getNextMax();
+        }
+
+        int[] expectedArray = {9, 6, 5, 5, 5, 4, 3, 3, 2, 1, 1};
+        assertArrayEquals(expectedArray, sortedArray);
+    }
+
+    @Test
+    void testEmptyHeap() {
+        int[] inputArray = {};
+        HeapSort heapSort = new HeapSort(inputArray);
+        assertEquals(-1, heapSort.getNextMax());
+    }
+
+    @Test
+    void testSingleElementHeap() {
+        int[] inputArray = {42};
+        HeapSort heapSort = new HeapSort(inputArray);
+        assertEquals(42, heapSort.getNextMax());
+        assertEquals(-1, heapSort.getNextMax());
+    }
 }

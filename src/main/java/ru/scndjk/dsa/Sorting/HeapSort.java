@@ -3,14 +3,10 @@ package ru.scndjk.dsa.Sorting;
 import java.util.Arrays;
 
 public class HeapSort {
-    public final Heap HeapObject = new Heap();
+    public Heap HeapObject = new Heap();
 
     public HeapSort(int[] array) {
         HeapObject.MakeHeap(array, getDepth(array.length));
-
-        for (int value : array) {
-            HeapObject.Add(value);
-        }
     }
 
     public int getNextMax() {
