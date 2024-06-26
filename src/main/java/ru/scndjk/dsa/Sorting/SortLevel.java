@@ -1,8 +1,13 @@
 package ru.scndjk.dsa.Sorting;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SortLevel {
     public static void SelectionSortStep(int[] array, int i) {
@@ -193,5 +198,44 @@ public class SortLevel {
         int temp = array[i];
         array[i] = array[j];
         array[j] = temp;
+    }
+
+    @Test
+    void testBinarySearchStepElementFound() {
+        int[] arr = {1, 3, 5, 7, 9};
+
+        BinarySearch bs = new BinarySearch(arr);
+        bs.Step(5);
+        assertEquals(1, bs.GetResult());
+    }
+
+    @Test
+    void testBinarySearchStepElementNotFound() {
+        int[] arr = {1, 3, 5, 7, 9};
+
+        BinarySearch bs = new BinarySearch(arr);
+        bs.Step(4);
+        bs.Step(4);
+        bs.Step(4);
+        assertEquals(-1, bs.GetResult());
+    }
+
+    @Test
+    void testBinarySearchStepSearchContinues() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+
+        BinarySearch bs = new BinarySearch(arr);
+        bs.Step(13);
+        assertEquals(0, bs.GetResult());
+        assertTrue(bs.Left < bs.Right);
+    }
+
+    @Test
+    void testBinarySearchEmptyArray() {
+        int[] arr = {};
+
+        BinarySearch bs = new BinarySearch(arr);
+        bs.Step(1);
+        assertEquals(-1, bs.GetResult());
     }
 }
