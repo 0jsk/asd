@@ -117,4 +117,77 @@ public class SortLevelTest {
         assertEquals(42, heapSort.getNextMax());
         assertEquals(-1, heapSort.getNextMax());
     }
+
+    @Test
+    void testKSortIndexValidStrings() {
+        var sorter  = new ksort();
+
+        assertEquals(0, sorter.index("a00"));
+        assertEquals(99, sorter.index("a99"));
+        assertEquals(100, sorter.index("b00"));
+        assertEquals(799, sorter.index("h99"));
+    }
+
+    @Test
+    void testKSortIndexInvalidStrings() {
+        var sorter  = new ksort();
+
+        assertEquals(-1, sorter.index("i00"));
+        assertEquals(-1, sorter.index("a-1"));
+        assertEquals(-1, sorter.index("a100"));
+        assertEquals(-1, sorter.index("aa0"));
+        assertEquals(-1, sorter.index("a0"));
+        assertEquals(-1, sorter.index("a000"));
+        assertEquals(-1, sorter.index(null));
+    }
+
+    @Test
+    void testKSortAddValidStrings() {
+        var sorter = new ksort();
+
+
+        assertTrue(sorter.add("a00"));
+        assertTrue(sorter.add("h99"));
+        assertTrue(sorter.add("d50"));
+
+        assertEquals("a00", sorter.items[0]);
+        assertEquals("h99", sorter.items[799]);
+        assertEquals("d50", sorter.items[350]);
+    }
+
+    @Test
+    void testKSortAddInvalidStrings() {
+        var sorter = new ksort();
+
+        assertFalse(sorter.add("i00"));
+        assertFalse(sorter.add("a-1"));
+        assertFalse(sorter.add("a100"));
+        assertFalse(sorter.add("aa0"));
+        assertFalse(sorter.add("a0"));
+        assertFalse(sorter.add("a000"));
+        assertFalse(sorter.add(null));
+    }
+
+    @Test
+    void testKSortSort() {
+        var sorter = new ksort();
+
+        sorter.add("b64");
+        sorter.add("a01");
+        sorter.add("h99");
+        sorter.add("c30");
+        sorter.add("g00");
+
+        assertEquals("a01", sorter.items[1]);
+        assertEquals("b64", sorter.items[164]);
+        assertEquals("c30", sorter.items[230]);
+        assertEquals("g00", sorter.items[600]);
+        assertEquals("h99", sorter.items[799]);
+
+        String[] nonNullItems = java.util.Arrays.stream(sorter.items)
+            .filter(java.util.Objects::nonNull)
+            .toArray(String[]::new);
+
+        assertArrayEquals(new String[]{"a01", "b64", "c30", "g00", "h99"}, nonNullItems);
+    }
 }
