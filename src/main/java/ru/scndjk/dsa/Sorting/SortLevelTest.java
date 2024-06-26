@@ -190,4 +190,34 @@ public class SortLevelTest {
 
         assertArrayEquals(new String[]{"a01", "b64", "c30", "g00", "h99"}, nonNullItems);
     }
+
+    @Test
+    void testGallopingSearchElementAtStart() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+        assertTrue(BinarySearch.GallopingSearch(arr, 1));
+    }
+
+    @Test
+    void testGallopingSearchElementAtEnd() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+        assertTrue(BinarySearch.GallopingSearch(arr, 15));
+    }
+
+    @Test
+    void testGallopingSearchElementInMiddle() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+        assertTrue(BinarySearch.GallopingSearch(arr, 7));
+    }
+
+    @Test
+    void testGallopingSearchElementNotPresent() {
+        int[] arr = {1, 3, 5, 7, 9, 11, 13, 15};
+        assertFalse(BinarySearch.GallopingSearch(arr, 6));
+    }
+
+    @Test
+    void testGallopingSearchEmptyArray() {
+        int[] arr = {};
+        assertFalse(BinarySearch.GallopingSearch(arr, 5));
+    }
 }

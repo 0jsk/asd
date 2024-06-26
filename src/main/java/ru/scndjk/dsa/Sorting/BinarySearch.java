@@ -39,4 +39,34 @@ public class BinarySearch {
     public int GetResult() {
         return searchStatus;
     }
+
+    public static boolean GallopingSearch(int[] array, int N) {
+        if (array == null || array.length == 0) {
+            return false;
+        }
+
+        int length = array.length;
+
+        if (N < array[0] || N > array[length - 1]) {
+            return false;
+        }
+
+        int i = 1;
+        while (i < length && array[i - 1] < N) {
+            i *= 2;
+        }
+
+        int left = i / 2;
+        int right = Math.min(i, length) - 1;
+
+        BinarySearch bs = new BinarySearch(array);
+        bs.Left = left;
+        bs.Right = right;
+
+        while (bs.GetResult() == 0) {
+            bs.Step(N);
+        }
+
+        return bs.GetResult() == 1;
+    }
 }
